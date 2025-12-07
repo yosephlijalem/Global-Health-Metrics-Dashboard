@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Health Metrics Dashboard</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <meta name="description" content="Global Health Metrics Dashboard – interactive analytics for life expectancy, GDP, mortality and population using World Bank Open Data. Built by Yoseph Lijalem.">
+</head>
+<body>
+    <header>
+        <div class="header-inner">
+            <div class="header-text">
+                <h1>Global Health Metrics Dashboard</h1>
+                <p class="header-subtitle">
+                    Interactive analytics for key development indicators across countries.
+                </p>
+                <p class="developer-tag">
+                    Designed &amp; developed by
+                    <span class="dev-name">Yoseph Lijalem</span>
+                </p>
+            </div>
+            <div class="header-badge">
+                <span>Live Data</span>
+                <span class="dot"></span>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Top controls -->
+        <section class="controls">
+            <div class="control-group">
+                <label for="countrySelect">Primary Country</label>
+                <select id="countrySelect">
+                    <option value="ETH">Ethiopia</option>
+                    <option value="USA">United States</option>
+                    <option value="CHN">China</option>
+                    <option value="IND">India</option>
+                    <option value="BRA">Brazil</option>
+                </select>
+            </div>
+
+            <div class="control-group">
+                <label for="metricSelect">Metric</label>
+                <select id="metricSelect">
+                    <option value="SP.DYN.LE00.IN">Life Expectancy at Birth</option>
+                    <option value="NY.GDP.MKTP.CD">GDP (Current US$)</option>
+                    <option value="SH.DYN.MORT">Mortality Rate</option>
+                    <option value="SP.POP.TOTL">Total Population</option>
+                </select>
+            </div>
+
+            <div class="control-group">
+                <label for="windowSelect">Time Window</label>
+                <select id="windowSelect">
+                    <option value="10">Last 10 years</option>
+                    <option value="20">Last 20 years</option>
+                    <option value="30" selected>Last 30 years</option>
+                </select>
+            </div>
+
+            <div class="control-group">
+                <label for="compareSelect">Compare With (optional)</label>
+                <select id="compareSelect">
+                    <option value="">None</option>
+                    <option value="ETH">Ethiopia</option>
+                    <option value="USA">United States</option>
+                    <option value="CHN">China</option>
+                    <option value="IND">India</option>
+                    <option value="BRA">Brazil</option>
+                </select>
+            </div>
+
+            <div class="control-group">
+                <label for="pieYearSelect">Pie Snapshot (compare mode)</label>
+                <select id="pieYearSelect">
+                    <option value="latest" selected>Latest year</option>
+                </select>
+            </div>
+        </section>
+
+        <section class="status">
+            <p id="statusMessage">Select a country and metric to load data.</p>
+        </section>
+
+        <!-- KPI cards -->
+        <section class="kpi-section">
+            <div class="kpi-card">
+                <h3>Latest Value</h3>
+                <p id="kpiCurrent">–</p>
+            </div>
+            <div class="kpi-card">
+                <h3>Change (absolute)</h3>
+                <p id="kpiAbsolute">–</p>
+            </div>
+            <div class="kpi-card">
+                <h3>Change (%)</h3>
+                <p id="kpiPercent">–</p>
+            </div>
+        </section>
+
+        <!-- Top row: line + bar -->
+        <section class="visual-grid">
+            <div class="visual-card">
+                <h2>Time Series (Primary vs Optional Compare)</h2>
+                <div class="chart-wrapper">
+                    <canvas id="healthChart"></canvas>
+                </div>
+            </div>
+
+            <div class="visual-card">
+                <h2>Yearly Bars</h2>
+                <div class="chart-wrapper">
+                    <canvas id="barChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bottom row: pie + table -->
+        <section class="visual-grid">
+            <div class="visual-card">
+                <h2>Distribution Snapshot</h2>
+                <div class="chart-wrapper">
+                    <canvas id="pieChart"></canvas>
+                </div>
+            </div>
+
+            <div class="visual-card">
+                <h2>Comparison Table</h2>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Year</th>
+                            <th id="primaryHeader">Primary</th>
+                            <th id="compareHeader">Compare</th>
+                            <th id="deltaHeader">Δ</th>
+                            <th id="deltaPctHeader">Δ%</th>
+                        </tr>
+                    </thead>
+                    <tbody id="dataTableBody">
+                        <!-- Filled via JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Metric details -->
+        <section class="metric-details">
+            <h2>Metric Details</h2>
+            <p id="metricDescription">
+                Select a metric to see a brief description of what it represents.
+            </p>
+            <p class="data-source">
+                Source: World Bank Open Data
+            </p>
+        </section>
+
+        <!-- Narrative insight -->
+        <section class="insights">
+            <h2>Summary Insight (primary country)</h2>
+            <p id="insightText">
+                When data is loaded, a brief summary of the overall trend will appear here.
+            </p>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-left">
+                <span class="footer-title">Global Health Metrics Dashboard</span>
+                <span class="footer-dev">
+                    Built by <strong>Yoseph Lijalem</strong>
+                </span>
+            </div>
+            <div class="footer-right">
+                <span class="footer-pill">HTML • CSS • JavaScript • Chart.js</span>
+                <span class="footer-pill">World Bank Open Data API</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JS -->
+    <script src="script.js"></script>
+</body>
+</html>
