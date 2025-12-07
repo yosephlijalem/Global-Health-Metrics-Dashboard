@@ -100,9 +100,4 @@ Each metric updates:
 
 ---
 
-## Project Structure
 
-```text
-index.html   # Layout, controls, and containers for charts and table
-style.css    # Styling, layout, dark theme, and responsive design
-script.js    # Data fetching, chart configuration, KPIs, table, and logic
