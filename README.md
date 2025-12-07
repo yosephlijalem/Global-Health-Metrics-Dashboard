@@ -1,5 +1,7 @@
 # Global Health Metrics Dashboard
 
+https://yosephlijalem.github.io/Global-Health-Metrics-Dashboard/
+
 Interactive dashboard for exploring key global development indicators across countries using World Bank Open Data. Built with HTML, CSS, JavaScript, and Chart.js.
 
 ---
@@ -97,7 +99,3 @@ Each metric updates:
   - The doughnut chart shows the relative share of the metric for both countries in that year
 - When comparison is disabled:
   - The doughnut chart switches to **start vs end** for the primary country
-
----
-
-
